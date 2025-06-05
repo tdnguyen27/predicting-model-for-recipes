@@ -65,7 +65,15 @@ The plot below shows the number of reviews per rating category. We can see a hig
   frameborder="0"
 ></iframe>
 
+
 The next plot below shows the probability distribution of calories. However, the calories column contains large outliers beyond the 75% percentile of 491.10; therefore, I chose to filter 10% of the outermost outliers of calories. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with an above average calorie value is lower.
+
+<iframe
+  src="assets/distribution_calories.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 # Problem Identification
 I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some. Whether it's to be more nutritionally aware or watching weight. The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**.
