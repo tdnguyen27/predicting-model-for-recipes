@@ -65,8 +65,7 @@ The plot below shows the number of reviews per rating category. We can see a hig
   frameborder="0"
 ></iframe>
 
-
-The next plot below shows the probability distribution of calories. However, the calories column contains large outliers beyond the 75% percentile of 491.10; therefore, I chose to filter 10% of the outermost outliers of calories. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with an above average calorie value is lower.
+The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories were greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
 
 <iframe
   src="assets/distribution_calories.html"
@@ -74,6 +73,47 @@ The next plot below shows the probability distribution of calories. However, the
   height="600"
   frameborder="0"
 ></iframe>
+
+# Bivariate Analysis 
+Here I will examine the statistics of a pair of columns to identify possible associations. 
+
+The scatter plot shown below identifies the relationship between number of ingredients and time in minutes. However, the <mark>minutes</mark> column has large outliers so I chose to filter 10% of the outermost outliers where minutes were greater than 130. Notice there is no strong, visible correlation (linear trend) between the number of ingredients and minutes of a recipe. There is similar vertical stretch all throughout suggesting that there isn't more ingredients for recipes that take longer. Lastly, there is a dense cloud of data points in the lower half of the x-axis which we can interpret as a greater number of recipes that take less time. 
+
+<iframe
+  src="assets/n_ingredients_minutes.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+# Interesting Aggregates 
+I will explore the average amount of sugar per rating category. I binned the continuous numerical <mark>sugar (PDV)</mark> column into discrete categorical intervals based on 4 bins: <mark>\['1st quartile','2nd quartile','3rd quartile','4th quartile']</mark>. Then I grouped with the two ordinal categorical columns <mark>sugar quartile</mark> and <mark>rating</mark> and found the average. 
+
+|sugar quartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
+|rating| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
+|1.0|61.09|864.83|1310.67|NaN|
+|2.0|52.90|883.24|1461.00|NaN|
+|3.0|48.27|814.55|NaN|NaN|
+|4.0|43.67|806.66|1450.59|2152.0|
+|5.0|47.29|806.18|1386.44|2156.5|
+
+- Note: wherever there are null values means that there is no data for a given rating that falls under the specific sugar quartile
+
+# NMAR Analysis 
+By exploring the data I found that there are 4 columns with null values: <mark>description, rating, review, and average rating</mark>. NMAR missingness is dependent on the value itself. Refer to the introduction where I performed the data cleaning. I created the null values that exist in the <mark>rating</mark> column, and the <mark>average rating</mark> column was created using the <mark>rating</mark> column so if one contains null values then it makes sense the other would too. 
+
+The missingness of <mark>rating</mark> is NMAR because I created the null values wherever rating was 0. This is because a rating of 0 meant a rating does not exist for the given recipe, not that the recipe was lowly rated. Leaving the existence of 0 values would affect the data analysis. 
+
+# MAR Missingness Dependency 
+## Missingness of reviews
+First, I will explore the missingness of review with calories.
+
+Null Hypothesis: Distribution of calories with missing review values is the same as without missing review values 
+
+Alternative Hypothesis: Distribution of calories with missing review values is different from without missing review values 
+
+Below is a plot of the distribution of calories when reviews are missing and when they are not. The two distributions are different shape but similar centers which led me to use the KS test stat.  
 
 # Problem Identification
 I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some. Whether it's to be more nutritionally aware or watching weight. The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**.
