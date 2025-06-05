@@ -54,6 +54,16 @@ Below is the first few rows of our full <mark>food</mark> dataframe
 |4|412 broccoli casserole|306168|40|50969|2008-05-30|[60-minutes-or-less, time-to-make, course, mai...|6|[preheat oven to 350 degrees, spray a 2 quart ...|since there are already 411 recipes for brocco...|[frozen broccoli cuts, cream of chicken soup, ...|9|7.69e+05|306168.0|2013-08-02|5.0|Loved this. Be sure to completely thaw the br...|5.0|194.8|20.0|6.0|32.0|22.0|36.0|3.0|
 
 # Univariate Analysis
+Here I will examine the distribution of single variables.
+
+The plot below shows the number of reviews per rating category. We can see a high skew specifically in favor of a ratings value of 5. This is likely because to be able to post a recipe to **food.com** there needs to be some credibility of skill and knowledge with cuisine, and in general people gear to foods that they know their personal palette will like, so this comes into play when deciding what recipe a person will spend their time preparing. Thus, less likely for someone to rate a recipe as "bad" when there is a good amount of consideration on the users' end. 
+
+<iframe
+  src="assets/num_reviews_per_rating.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 # Problem Identification
 I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some. Whether it's to be more nutritionally aware or watching weight. The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**.
