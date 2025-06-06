@@ -102,7 +102,7 @@ By exploring the data I found that there are 4 columns with null values: descrip
 The missingness of rating is NMAR because I created the null values wherever rating was 0. This is because a rating of 0 meant a rating does not exist for the given recipe, not that the recipe was lowly rated. Leaving the existence of 0 values would affect the data analysis. 
 ## Missingness Dependency
 I will explore the missingness dependency of reviews against other columns using hypothesis testing with a significance level of **0.05**. 
-# Review and Sodium
+### Review and Sodium
 **Null Hypothesis:** Distribution of sodium with missing review values is the same as without missing review values 
 
 **Alternative Hypothesis:** Distribution of sodium with missing review values is different from without missing review values 
@@ -115,7 +115,7 @@ I will explore the missingness dependency of reviews against other columns using
   frameborder="0"
 ></iframe>
 I performed a permutation test and got a p-value of 0.17 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on sodium amount. 
-# Review and Number of Steps 
+### Review and Number of Steps 
 **Null Hypothesis:** Distribution of number of steps with missing review values is the same as without missing review values 
 
 **Alternative Hypothesis:** Distribution of number of steps with missing review values is different from without missing review values 
