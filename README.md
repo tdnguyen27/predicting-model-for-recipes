@@ -72,9 +72,9 @@ Here I will examine the distribution of single variables.
 The plot below shows the number of reviews per rating category. We can see a high skew specifically in favor of a ratings value of 5. This is likely because to be able to post a recipe to **food.com** there needs to be some credibility of skill and knowledge with cuisine, and in general people gear to foods that they know their personal palette will like, so this comes into play when deciding what recipe a person will spend their time preparing. Thus, less likely for someone to rate a recipe as "bad" when there is a good amount of consideration on the users' end. 
 
 <iframe
-  src="univar1-reviews-ratings.html"
-  width="500"
-  height="300"
+  src="assets/univar1-reviews-ratings.html"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -82,8 +82,8 @@ The next plot below shows the probability distribution of calories. However, the
 
 <iframe
   src="assets/univar2-calories.html"
-  width="500"
-  height="300"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -95,8 +95,8 @@ The scatter plot shown below identifies the relationship between number of ingre
 
 <iframe
   src="assets/bivar-ingredients-minutes.html"
-  width="500"
-  height="300"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -137,8 +137,8 @@ I will explore the missingness dependency of reviews against other columns using
 
 <iframe
   src="assets/MAR-sodium.html"
-  width="500"
-  height="300"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -155,7 +155,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
 <iframe
   src="assets/MAR-nsteps.html"
   width="800"
-  height="300"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -180,8 +180,8 @@ I chose a permutation test because I only have access to a sample of recipes fro
 
 <iframe
   src="assets/MAR-nsteps.html"
-  width="500"
-  height="300"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -229,8 +229,8 @@ I performed a permutation test with 1000 repititions shuffling the labels of my 
 
 <iframe
   src="assets/fairness_distr.html"
-  width="500"
-  height="300"
+  width="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
