@@ -3,6 +3,7 @@ This is a project for Data Science 80 at UCSD where I will be working with a raw
 # Introduction
 Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even as a stress or creative outlet. It gives us the ability to provide for ourselves and our loved ones, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working with ingredients repeatedly and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data exploration I will explore the **calories of a recipe**. The raw dataset from food.com consists of recipes and ratings which date back to 2018. 
 The recipes dataset has 83782 rows with each row representing a unique recipe. The 12 columns of recipes is shown below. 
+
 |Column|Description|
 |-----------|-----------|
 |'name'|Recipe name|
@@ -19,6 +20,7 @@ The recipes dataset has 83782 rows with each row representing a unique recipe. T
 |'n_ingredients'|Number of ingredients in recipe|
 
 The interactions dataset has 731927 with each row representing a review on a specified recipe. The 5 columns of interactions is shown below.
+
 |Column|Description|
 |-----------|-----------|
 |'user_id'|User ID|
@@ -120,7 +122,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
 
 **Test Statistic:** the plot of the distribution of number of steps when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.
 <iframe
-  src="assets/MAR-nsteps.html"
+  src="assets/MAR_nsteps.html"
   width="800"
   height="600"
   frameborder="0"
