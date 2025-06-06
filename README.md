@@ -179,7 +179,7 @@ I decided to group the calories to create a categorical column based on where ca
 I chose a permutation test because I only have access to a sample of recipes from food.com and we want to compare if two distributions look similar or different (from same population or not). I performed 1000 repititions and shuffled the newly created categorical data column from grouping calories.
 
 <iframe
-  src="assets/permtest.html"
+  src="assets/MAR-nsteps.html"
   width="500"
   height="300"
   frameborder="0"
