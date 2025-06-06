@@ -17,7 +17,6 @@ The recipes dataset has 83782 rows with each row representing a unique recipe. T
 |'description'|User-provided description|
 |'ingredients'|Text of ingredients|
 |'n_ingredients'|Number of ingredients in recipe|
-
 The interactions dataset has 731927 with each row representing a review on a specified recipe. The 5 columns of interactions is shown below.
 |Column|Description|
 |-----------|-----------|
@@ -52,7 +51,6 @@ Below is the first few rows of our full food dataframe
 |2|412 broccoli casserole|306168|40|50969|2008-05-30|[60-minutes-or-less, time-to-make, course, mai...|6|[preheat oven to 350 degrees, spray a 2 quart ...|since there are already 411 recipes for brocco...|[frozen broccoli cuts, cream of chicken soup, ...|9|2.98e+04|306168.0|2008-12-31|5.0|This was one of the best broccoli casseroles t...|5.0|194.8|20.0|6.0|32.0|22.0|36.0|3.0|
 |3|412 broccoli casserole|306168|40|50969|2008-05-30|[60-minutes-or-less, time-to-make, course, mai...|6|[preheat oven to 350 degrees, spray a 2 quart ...|since there are already 411 recipes for brocco...|[frozen broccoli cuts, cream of chicken soup, ...|9|1.20e+06|306168.0|2009-04-13|5.0|I made this for my son's first birthday party ...|5.0|194.8|20.0|6.0|32.0|22.0|36.0|3.0|
 |4|412 broccoli casserole|306168|40|50969|2008-05-30|[60-minutes-or-less, time-to-make, course, mai...|6|[preheat oven to 350 degrees, spray a 2 quart ...|since there are already 411 recipes for brocco...|[frozen broccoli cuts, cream of chicken soup, ...|9|7.69e+05|306168.0|2013-08-02|5.0|Loved this. Be sure to completely thaw the br...|5.0|194.8|20.0|6.0|32.0|22.0|36.0|3.0|
-
 # Univariate Analysis
 Here I will examine the distribution of single variables.
 
@@ -82,7 +80,6 @@ The scatter plot shown below identifies the relationship between number of ingre
 ></iframe>
 # Interesting Aggregates 
 I will explore the average amount of sugar per rating category. I binned the continuous numerical sugar column into discrete categorical intervals based on 4 bins: 1st quartile, 2nd quartile, 3rd quartile, and 4th quartile of the sugar data. Then I grouped with the two ordinal categorical columns, sugar quartile and rating, and found the average. 
-
 |sugar quartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
 | --- | --- | --- | --- | --- |
 |rating|  |  |  |  |
@@ -91,7 +88,6 @@ I will explore the average amount of sugar per rating category. I binned the con
 |3.0|48.27|814.55|NaN|NaN|
 |4.0|43.67|806.66|1450.59|2152.0|
 |5.0|47.29|806.18|1386.44|2156.5|
-
 - Note: wherever there are null values means that there is no data for a given rating that falls under the specific sugar quartile
 # Assessment of Missingness
 ## NMAR Analysis
