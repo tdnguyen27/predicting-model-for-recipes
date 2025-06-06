@@ -73,8 +73,8 @@ The plot below shows the number of reviews per rating category. We can see a hig
 
 <iframe
   src="assets/univar1-reviews-ratings.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -82,8 +82,8 @@ The next plot below shows the probability distribution of calories. However, the
 
 <iframe
   src="assets/univar2-calories.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -95,8 +95,8 @@ The scatter plot shown below identifies the relationship between number of ingre
 
 <iframe
   src="assets/bivar-ingredients-minutes.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -137,8 +137,8 @@ I will explore the missingness dependency of reviews against other columns using
 
 <iframe
   src="assets/MAR-sodium.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -155,7 +155,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
 <iframe
   src="assets/MAR-nsteps.html"
   width="800"
-  height="600"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -180,8 +180,8 @@ I chose a permutation test because I only have access to a sample of recipes fro
 
 <iframe
   src="assets/permtest.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
@@ -229,8 +229,8 @@ I performed a permutation test with 1000 repititions shuffling the labels of my 
 
 <iframe
   src="assets/fairness_distr.html"
-  width="800"
-  height="600"
+  width="500"
+  height="300"
   frameborder="0"
 ></iframe>
 
