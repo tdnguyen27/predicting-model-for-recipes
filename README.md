@@ -61,7 +61,7 @@ The plot below shows the number of reviews per rating category. We can see a hig
 <iframe
   src="assets/univar1-reviews-ratings.html"
   width="800"
-  height="400"
+  height="600"
   frameborder="0"
 ></iframe>
 The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories are greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
