@@ -83,9 +83,9 @@ The scatter plot shown below identifies the relationship between number of ingre
 ></iframe>
 # Interesting Aggregates 
 I will explore the average amount of sugar per rating category. I binned the continuous numerical sugar column into discrete categorical intervals based on 4 bins: 1st quartile, 2nd quartile, 3rd quartile, and 4th quartile of the sugar data. Then I grouped with the two ordinal categorical columns, sugar quartile and rating, and found the average. 
-|sugar quartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
-| --- | --- | --- | --- | --- |
-|rating|  |  |  |  |
+|sugarquartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
+|---|---|---|---|---|
+|rating| | | | |
 |1.0|61.09|864.83|1310.67|NaN|
 |2.0|52.90|883.24|1461.00|NaN|
 |3.0|48.27|814.55|NaN|NaN|
