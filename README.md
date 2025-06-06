@@ -73,18 +73,18 @@ The plot below shows the number of reviews per rating category. We can see a hig
 
 <iframe
   src="assets/univar1-reviews-ratings.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories are greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
 
 <iframe
   src="assets/univar2-calories.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 # Bivariate Analysis 
@@ -95,9 +95,9 @@ The scatter plot shown below identifies the relationship between number of ingre
 
 <iframe
   src="assets/bivar-ingredients-minutes.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 # Interesting Aggregates 
@@ -137,9 +137,9 @@ I will explore the missingness dependency of reviews against other columns using
 
 <iframe
   src="assets/MAR-sodium.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 I performed a permutation test and got a p-value of 0.17 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on sodium amount.
@@ -154,9 +154,9 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
 
 <iframe
   src="assets/MAR-nsteps.html"
-  width="800"
+  width="700"
   height="600"
-  frameborder="0"
+  frameborder="3"
 ></iframe>
 
 I performed a permutation test and got a p-value of 0.00007 which led me to reject the null hypothesis in favor of the alternative hypothesis; therefore, the missingness of review is dependent on the number of steps of a recipe.
@@ -180,9 +180,9 @@ I chose a permutation test because I only have access to a sample of recipes fro
 
 <iframe
   src="assets/MAR-nsteps.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 The observed test statistic is represented by the bold vertical line. I got a p-value of **0.676** which led me to keep the null hypothesis which means any observed differences is due to randomness. 
@@ -229,9 +229,9 @@ I performed a permutation test with 1000 repititions shuffling the labels of my 
 
 <iframe
   src="assets/fairness_distr.html"
-  width="700"
-  height="600"
-  frameborder="0"
+  width="600"
+  height="500"
+  frameborder="3"
 ></iframe>
 
 I got a p-value of 0.0 which led me to reject the null hypothesis in favor of the alternative hypothesis. Therefore, I cannot say that the model is fair, and differences are not due to randomness; although, I cannot precisely define why. 
