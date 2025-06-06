@@ -1,6 +1,7 @@
-# Overview
+# Data Analysis on Features of Food Recipe
 
-This is a project for Data Science 80 at UCSD where I will be working with a raw dataset from food.com and perform data exploration and analysis to ultimately find the best prediction model.
+Author: Tori Nguyen
+
 # Introduction
 
 Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even functions as a stress or creative outlet. It gives us the ability to provide for ourselves and our loved ones, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working repeatedly with ingredients and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data analysis I will primarily explore the **calories of a recipe**. 
