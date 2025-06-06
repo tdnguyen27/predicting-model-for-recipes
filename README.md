@@ -153,7 +153,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
 **Test Statistic:** the plot of the distribution of number of steps when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.
 
 <iframe
-  src="assets/MAR_nsteps.html"
+  src="assets/MAR-nsteps.html"
   width="800"
   height="600"
   frameborder="0"
