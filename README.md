@@ -85,9 +85,10 @@ The scatter plot shown below identifies the relationship between number of ingre
 ></iframe>
 # Interesting Aggregates 
 I will explore the average amount of sugar per rating category. I binned the continuous numerical sugar column into discrete categorical intervals based on 4 bins: 1st quartile, 2nd quartile, 3rd quartile, and 4th quartile of the sugar data. Then I grouped with the two ordinal categorical columns, sugar quartile and rating, and found the average. 
+
 |sugarquartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
-|---|---|---|---|---|
-|rating| | | | |
+| --- | --- | --- | --- | --- |
+|rating|  |  |  |  |
 |1.0|61.09|864.83|1310.67|NaN|
 |2.0|52.90|883.24|1461.00|NaN|
 |3.0|48.27|814.55|NaN|NaN|
@@ -95,11 +96,14 @@ I will explore the average amount of sugar per rating category. I binned the con
 |5.0|47.29|806.18|1386.44|2156.5|
 
 - Note: wherever there are null values means that there is no data for a given rating that falls under the specific sugar quartile
+
 # Assessment of Missingness
+
 ## NMAR Analysis
 By exploring the data I found that there are 4 columns with null values: description, rating, review, and average rating. NMAR missingness is dependent on the value itself. Refer to the introduction where I performed the data cleaning. I created the null values that exist in the rating column, and the average rating column was created using the rating column so if one contains null values then it makes sense that the other would too. 
 
 The missingness of rating is NMAR because I created the null values wherever rating was 0. This is because a rating of 0 meant a rating does not exist for the given recipe, not that the recipe was lowly rated. Leaving the existence of 0 values would affect the data analysis. 
+
 ## Missingness Dependency
 I will explore the missingness dependency of reviews against other columns using hypothesis testing with a significance level of **0.05**. 
 ### Review and Sodium
@@ -114,7 +118,8 @@ I will explore the missingness dependency of reviews against other columns using
   height="600"
   frameborder="0"
 ></iframe>
-I performed a permutation test and got a p-value of 0.17 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on sodium amount. 
+I performed a permutation test and got a p-value of 0.17 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on sodium amount.
+
 ### Review and Number of Steps 
 **Null Hypothesis:** Distribution of number of steps with missing review values is the same as without missing review values 
 
@@ -128,6 +133,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
   frameborder="0"
 ></iframe>
 I performed a permutation test and got a p-value of 0.00007 which led me to reject the null hypothesis in favor of the alternative hypothesis; therefore, the missingness of review is dependent on the number of steps of a recipe.
+
 # Hypothesis Testing
 My main interest in exploring the food dataset is investigating the nutritional aspect of a recipe. The question I am focused on answering is **"What is the relationship between calories and average rating of a recipe?"**. Both calories and average rating are numerical continuous data. 
 
@@ -150,14 +156,17 @@ I chose a permutation test because I only have access to a sample of recipes fro
   frameborder="0"
 ></iframe>
 The observed test statistic is represented by the bold vertical line. I got a p-value of **0.676** which led me to keep the null hypothesis which means any observed differences is due to randomness. 
+
 # Problem Identification
 I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some; whether it's to be more nutritionally aware or watch their weight. 
 
 The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**. I filtered the original **food** dataframe to remove the outermost 1% of outliers where calories >= 2500. I determined only a 1% removal because that will handle the situation of extreme cases and I won't lose too much potentially important data for my predictions. 
+
 # Baseline Model 
 For my baseline model I am untilizing a Linear Regression model and splitting the dataset into testing and training sets. The features in the baseline model are total fats, carbohydrates, and proteins in percentage of daily value \(PDV). All 3 features are quantitative however I chose to standardize these features because carbohydrates averaged about 12 while proteins and total fats averaged about 30. 
 
 The RMSE of the training set is **29.35** which is a good model because I recognize that RMSE is in the units of our original y data which is calories. So, our RMSE is telling me that the predicted values are about 29.35 calories off from the actual calorie values, which is not a lot in terms of calories. 
+
 # Final Model 
 The final model uses the standardized features total fats, carbohydrates, protein, and sugar; as well as the binarized feature n_ingredients. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
 1. stdscalar total fats only
@@ -170,6 +179,7 @@ The final model uses the standardized features total fats, carbohydrates, protei
 I chose the obvious features of fats, carbohydrates, proteins, and sugars because calories are essentially the measure of the amount of these nutrients in food. Then I considered the number of ingredients as the next most important when predicting the calories of a recipe since more added material to a recipe will increase the calories. However, it wasn't one of my highest options because if the number of ingredients is high from something like onions, garlic, seasonings, etc then those will not contribute to a higher calorie count. The last feature I considered is how long a recipe takes to make (minutes column). Generally, foods that are more nutritionally dense like chicken take longer to cook or desserts that have high amounts of sugar and are baked also take a long time to cook. On the flip side foods like steak are nutritionally dense but are done cooking fast, so minutes may not be an important feature to add in our model.
 
 I continued to use the RMSE metric to evaluate my final model. The RMSE of my final model is **29.32** which is 0.03 better than the baseline model.
+
 # Fairness Analysis
 For my fairness analysis I chose my two groups as above median minutes and below median minutes. I chose the median instead of mean because the distribution of minutes has many large outliers in which the mean is not robust to. Since my model is a regression model I chose the RMSE as my evaluation metric. 
 
