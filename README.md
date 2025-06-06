@@ -76,6 +76,7 @@ The plot below shows the number of reviews per rating category. We can see a hig
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -86,6 +87,7 @@ The next plot below shows the probability distribution of calories. However, the
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -100,6 +102,7 @@ The scatter plot shown below identifies the relationship between number of ingre
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -143,6 +146,7 @@ I will explore the missingness dependency of reviews against other columns using
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -161,6 +165,7 @@ I performed a permutation test and got a p-value of 0.17 which led me to keep th
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -188,6 +193,7 @@ I chose a permutation test because I only have access to a sample of recipes fro
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
@@ -238,6 +244,7 @@ I performed a permutation test with 1000 repititions shuffling the labels of my 
   width="800"
   height="450"
   frameborder="0"
+  align="middle"
   style="border:1px solid black;"
 ></iframe>
 
