@@ -1,7 +1,7 @@
 # Overview
-This is a project for Data Science 80 at UCSD where I will be working with a raw dataset from food.com and perform data exploratoration to find the best prediction model
+This is a project for Data Science 80 at UCSD where I will be working with a raw dataset from food.com and perform data exploration and analysis to ultimately find the best prediction model.
 # Introduction
-Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even as a stress or creative outlet. It gives us the ability to provide for ourselves and loved ones with our own hands, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working with ingredients repeatedly and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data exploration I will explore the **calories of a recipe**. The raw dataset from food.com consists of a recipes and ratings which date back to 2018. 
+Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even as a stress or creative outlet. It gives us the ability to provide for ourselves and our loved ones, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working with ingredients repeatedly and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data exploration I will explore the **calories of a recipe**. The raw dataset from food.com consists of recipes and ratings which date back to 2018. 
 The recipes dataset has 83782 rows with each row representing a unique recipe. The 12 columns of recipes is shown below. 
 |Column|Description|
 |-----------|-----------|
@@ -27,16 +27,16 @@ The interactions dataset has 731927 with each row representing a review on a spe
 |'rating'|Rating given|
 |'review'|Review text|
 ### First Part
-This will be the data cleaning and exploration in discovering relationships between the features of our dataset. 
+This will be the data cleaning and exploration in discovering relationships between the features of the dataset. 
 ### Second Part 
-This will be the assessment of Missingness of certain columns and then proceed to run a hypothesis test answering the question: **What is the relationship between calories and average rating of recipes?**
+This will be the assessment of missingness of certain columns and then proceeding to run a hypothesis test answering the question: **What is the relationship between calories and average rating of recipes?**
 ### Last Part 
 This will be the creation of my prediction model focused on predicting the calories of a recipe. 
 # Data Cleaning and Exploration 
 ## Cleaning 
-1. Left merge recipes dataset with interactions dataset. Now the reviews of a recipe along with the rating of the recipe in our new dataframe food with **234429** rows.
-2. Replace all 0 values in 'rating' column with np.nan values. This is important to do because a rating of 0 doesnt mean that it was rated very lowly therefore considered "bad" recipe, but rather that no rating exists for that particular recipe.
-3. Find the average rating of a recipe and add that as a column. This is important to do because the same recipe can appear more than once because there may be multiple reviews thus multiple ratings from different users for one recipe.  
+1. Left merge recipes dataset with interactions dataset. Now for every recipe there is a rating and review for it. The new dataframe **food** has **234429** rows.
+2. Replace all 0 values in 'rating' column with null values. This is important to do because a rating of 0 doesn't mean that it was rated very lowly thus considered a "bad" recipe, but rather that no rating exists for that particular recipe.
+3. Find the average rating of a recipe and add that as a column. This is also important to do since the same recipe can appear more than once because there may be multiple reviews thus multiple ratings from different users for one recipe.  
 4. Convert ingredients, tags, and steps columns to lists values.
   - Although it looks like a list it is actually a string object. Clean up the string formatting and convert to a list.
 5. Convert submitted and date columns to datetime objects
@@ -58,14 +58,14 @@ Here I will examine the distribution of single variables.
 
 The plot below shows the number of reviews per rating category. We can see a high skew specifically in favor of a ratings value of 5. This is likely because to be able to post a recipe to **food.com** there needs to be some credibility of skill and knowledge with cuisine, and in general people gear to foods that they know their personal palette will like, so this comes into play when deciding what recipe a person will spend their time preparing. Thus, less likely for someone to rate a recipe as "bad" when there is a good amount of consideration on the users' end. 
 <iframe
-  src="assets/num_reviews_per_rating.html"
+  src="assets/univar1-reviews-ratings.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories were greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
+The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories are greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
 <iframe
-  src="assets/distribution_calories.html"
+  src="assets/univar2-calories.html"
   width="800"
   height="600"
   frameborder="0"
@@ -73,15 +73,15 @@ The next plot below shows the probability distribution of calories. However, the
 # Bivariate Analysis 
 Here I will examine the statistics of a pair of columns to identify possible associations. 
 
-The scatter plot shown below identifies the relationship between number of ingredients and time in minutes. However, the <mark>minutes</mark> column has large outliers so I chose to filter 10% of the outermost outliers where minutes were greater than 130. Notice there is no strong, visible correlation (linear trend) between the number of ingredients and minutes of a recipe. There is similar vertical stretch all throughout suggesting that there isn't more ingredients for recipes that take longer. Lastly, there is a dense cloud of data points in the lower half of the x-axis which we can interpret as a greater number of recipes that take less time. 
+The scatter plot shown below identifies the relationship between number of ingredients and time in minutes. However, the minutes column has large outliers so I chose to filter 10% of the outermost outliers where minutes are greater than 130. Notice there is no strong, visible correlation (linear trend) between the number of ingredients and minutes of a recipe. There is also similar vertical stretch all throughout suggesting that there isn't more ingredients for recipes that take longer. Lastly, there is a dense cloud of data points in the lower half of the x-axis in which we can interpret as there more recipes that take less time. 
 <iframe
-  src="assets/n_ingredients_minutes.html"
+  src="assets/bivar-ingredients-minutes.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
 # Interesting Aggregates 
-I will explore the average amount of sugar per rating category. I binned the continuous numerical sugar (PDV) column into discrete categorical intervals based on 4 bins: 1st quartile, 2nd quartile, 3rd quartile, and 4th quartile. Then I grouped with the two ordinal categorical columns sugar quartile and rating and found the average. 
+I will explore the average amount of sugar per rating category. I binned the continuous numerical sugar column into discrete categorical intervals based on 4 bins: 1st quartile, 2nd quartile, 3rd quartile, and 4th quartile of the sugar data. Then I grouped with the two ordinal categorical columns, sugar quartile and rating, and found the average. 
 
 |sugar quartile|1st quartile|2nd quartile|3rd quartile|4th quartile|
 | --- | --- | --- | --- | --- |
@@ -95,24 +95,24 @@ I will explore the average amount of sugar per rating category. I binned the con
 - Note: wherever there are null values means that there is no data for a given rating that falls under the specific sugar quartile
 # Assessment of Missingness
 ## NMAR Analysis
-By exploring the data I found that there are 4 columns with null values: description, rating, review, and average rating. NMAR missingness is dependent on the value itself. Refer to the introduction where I performed the data cleaning. I created the null values that exist in the rating column, and the average rating column was created using the rating column so if one contains null values then it makes sense the other would too. 
+By exploring the data I found that there are 4 columns with null values: description, rating, review, and average rating. NMAR missingness is dependent on the value itself. Refer to the introduction where I performed the data cleaning. I created the null values that exist in the rating column, and the average rating column was created using the rating column so if one contains null values then it makes sense that the other would too. 
 
 The missingness of rating is NMAR because I created the null values wherever rating was 0. This is because a rating of 0 meant a rating does not exist for the given recipe, not that the recipe was lowly rated. Leaving the existence of 0 values would affect the data analysis. 
 ## Missingness Dependency
 I will explore the missingness dependency of reviews against other columns using hypothesis testing with a significance level of **0.05**. 
-# Review and Protein
-**Null Hypothesis:** Distribution of protein with missing review values is the same as without missing review values 
+# Review and Sodium
+**Null Hypothesis:** Distribution of sodium with missing review values is the same as without missing review values 
 
-**Alternative Hypothesis:** Distribution of protein with missing review values is different from without missing review values 
+**Alternative Hypothesis:** Distribution of sodium with missing review values is different from without missing review values 
 
-**Test Statistic:** the plot of the distribution of protein when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.  
+**Test Statistic:** the plot of the distribution of sodium when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.  
 <iframe
-  src="assets/protein_MAR.html"
+  src="assets/MAR-sodium.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-I performed a permutation test and got a p-value of 0.082 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on protein amount. 
+I performed a permutation test and got a p-value of 0.17 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on sodium amount. 
 # Review and Number of Steps 
 **Null Hypothesis:** Distribution of number of steps with missing review values is the same as without missing review values 
 
@@ -120,39 +120,44 @@ I performed a permutation test and got a p-value of 0.082 which led me to keep t
 
 **Test Statistic:** the plot of the distribution of number of steps when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.
 <iframe
-  src="assets/n_steps_MAR.html"
+  src="assets/MAR-nsteps.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-I performed a permutation test and got a p-value of 0.00023 which led me to reject the null hypothesis in favor of the alternative hypothesis; therefore, the missingness of review is dependent on the number of steps of a recipe.
+I performed a permutation test and got a p-value of 0.00007 which led me to reject the null hypothesis in favor of the alternative hypothesis; therefore, the missingness of review is dependent on the number of steps of a recipe.
 # Hypothesis Testing
-My main interest in exploring the <mark>food</mark> dataset is investigating the nutritional aspect of a recipe. The question I am focused on answering is "What is the relationship between calories and average rating of a recipe?". Both calories and average rating are numerical continuous data. 
+My main interest in exploring the food dataset is investigating the nutritional aspect of a recipe. The question I am focused on answering is **"What is the relationship between calories and average rating of a recipe?"**. Both calories and average rating are numerical continuous data. 
 
-**Null Hypothesis:** The average rating for recipes with below average calories is the same as that for recipes with above average calories, therefore any observed differences is due to randomn chance 
+I decided to group the calories to create a categorical column based on where calories are greater than and less than the median of calories (298.2). I chose to go with the median because the calories column has large outliers that heavily skews the data to the right, in which the median would be good to use as it is robust to outliers. 
 
-**Alternative Hypothesis:** The average rating for recipes with below average calories is different from that for recipes with above average calories
+**Null Hypothesis:** The average rating for recipes with below median calories is the same as that for recipes with above median calories, therefore any observed differences is due to randomn chance 
 
-**Test Statistic:** Absolute value of difference in mean between 'below average' calories and 'above average' calories
-- I chose to use the absolute value because I care about if these two distributions are different; therefore I care about the magnitude in difference not the direction 
+**Alternative Hypothesis:** The average rating for recipes with below median calories is different from that for recipes with above median calories
+
+**Test Statistic:** Absolute value of difference in mean between 'below median' calories and 'above median' calories
+- I chose to use the absolute value because I care about whether these two distributions are different; therefore I care about the magnitude in difference not the direction 
 
 **Significance Level:** 0.05
 
-I chose a permutation test because I only have access to a sample of recipes from food.com and we want to compare if two distributions look similar or different (from same population or not). I grouped the numerical calories data into categorical based on the mean of the calories data where the two groups are 'above average' and 'below average', and these are the labels I shuffled. 
+I chose a permutation test because I only have access to a sample of recipes from food.com and we want to compare if two distributions look similar or different (from same population or not). I performed 1000 repititions and shuffled the newly created categorical data column from grouping calories.
 <iframe
   src="assets/permtest.html"
   width="800"
   height="600"
   frameborder="0"
 ></iframe>
-The observed test statistic is represented by the bold vertical line. I got a p-value of **0.268** which led me to keep the null hypothesis which means any observed differences noticed is due to randomness. 
+The observed test statistic is represented by the bold vertical line. I got a p-value of **0.676** which led me to keep the null hypothesis which means any observed differences is due to randomness. 
 # Problem Identification
-I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some. Whether it's to be more nutritionally aware or watching weight. The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**.
+I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some; whether it's to be more nutritionally aware or watch their weight. 
+
+The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**. I filtered the original **food** dataframe to remove the outermost 1% of outliers where calories >= 2500. I determined only a 1% removal because that will handle the situation of extreme cases and I won't lose too much potentially important data for my predictions. 
 # Baseline Model 
 For my baseline model I am untilizing a Linear Regression model and splitting the dataset into testing and training sets. The features in the baseline model are total fats, carbohydrates, and proteins in percentage of daily value \(PDV). All 3 features are quantitative however I chose to standardize these features because carbohydrates averaged about 12 while proteins and total fats averaged about 30. 
-The RMSE of the model is **28.94** which is a good model because I recognize that RMSE is in the units of our original y data which is calories. So, our RMSE is telling me that the predicted values are about 28.94 calories off from the actual calorie values, which is not a lot in terms of calories. 
+
+The RMSE of the training set is **29.35** which is a good model because I recognize that RMSE is in the units of our original y data which is calories. So, our RMSE is telling me that the predicted values are about 29.35 calories off from the actual calorie values, which is not a lot in terms of calories. 
 # Final Model 
-The final model uses the standardized features total fats (PDV), carbohydrates (PDV), protein (PDV), and sugar (PDV); as well as the binarized feature n_ingredients. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
+The final model uses the standardized features total fats, carbohydrates, protein, and sugar; as well as the binarized feature n_ingredients. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
 1. stdscalar total fats only
 2. stdscalar total fats + carbs
 3. stdscalar total fats + carbs + protein
@@ -160,9 +165,9 @@ The final model uses the standardized features total fats (PDV), carbohydrates (
 5. **stdscalar total fats + carbs + proteins + sugars + binarized n_ingredients**
 6. stdscalar total fats + carbs + proteins + sugars + binarized n_ingredients + stdscalar minutes
 
-I chose the obvious features of fats, carbohydrates, proteins, and sugars because calories are essentially the measure of the amount of these nutrients in food. Then I considered the number of ingredients as the next most important when predicting the calories of a recipe since more added material to a recipe will increase the calories; however, if the number of ingredients is high because of something like onions, garlic, seasonings, etc then those will not contribute to a higher calorie count, so I will train my model to see if the feature n_ingredients actually contributes to better predictions. The last feature I considered is how long a recipe takes to make, minutes. Generally, foods that are more nutritionally dense like chicken take longer to cook or desserts that have high amounts of sugar and are baked also take a long time to cook. On the flip side foods like steak are nutritionally dense but are done cooking fast, so minutes may not be an important feature to add in our model.
+I chose the obvious features of fats, carbohydrates, proteins, and sugars because calories are essentially the measure of the amount of these nutrients in food. Then I considered the number of ingredients as the next most important when predicting the calories of a recipe since more added material to a recipe will increase the calories. However, it wasn't one of my highest options because if the number of ingredients is high from something like onions, garlic, seasonings, etc then those will not contribute to a higher calorie count. The last feature I considered is how long a recipe takes to make (minutes column). Generally, foods that are more nutritionally dense like chicken take longer to cook or desserts that have high amounts of sugar and are baked also take a long time to cook. On the flip side foods like steak are nutritionally dense but are done cooking fast, so minutes may not be an important feature to add in our model.
 
-I continued to use the RMSE metric to evaluate my final model. The RMSE of my final model is **28.78** which is 0.16 better than the baseline model.
+I continued to use the RMSE metric to evaluate my final model. The RMSE of my final model is **29.32** which is 0.03 better than the baseline model.
 # Fairness Analysis
 For my fairness analysis I chose my two groups as above median minutes and below median minutes. I chose the median instead of mean because the distribution of minutes has many large outliers in which the mean is not robust to. Since my model is a regression model I chose the RMSE as my evaluation metric. 
 
@@ -170,9 +175,12 @@ For my fairness analysis I chose my two groups as above median minutes and below
 
 **Alternative Hypothesis:** My model is unfair. The RMSE for below median minutes group is lower than the RMSE for above median minutes group. 
 
-**Test Statistic:** The difference in RMSE of (below to median minutes group - above median minutes group)
+**Test Statistic:** The difference in RMSE of (below median minutes group - above median minutes group)
 
 **Significance Level:** 0.05
+
+I performed a permutation test with 1000 repititions shuffling the labels of my new categorical data created from grouping minutes.
+
 <iframe
   src="assets/fairness_distr.html"
   width="800"
