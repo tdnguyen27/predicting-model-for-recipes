@@ -3,8 +3,9 @@
 This is a project for Data Science 80 at UCSD where I will be working with a raw dataset from food.com and perform data exploration and analysis to ultimately find the best prediction model.
 # Introduction
 
-Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even as a stress or creative outlet. It gives us the ability to provide for ourselves and our loved ones, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working with ingredients repeatedly and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data exploration I will explore the **calories of a recipe**. The raw dataset from food.com consists of recipes and ratings which date back to 2018. 
-The recipes dataset has 83782 rows with each row representing a unique recipe. The 12 columns of recipes is shown below. 
+Cooking is an all rounded skill that teaches one about nourishing the body, nutritional awareness, and even functions as a stress or creative outlet. It gives us the ability to provide for ourselves and our loved ones, and only through practice and exploration of recipes and cuisines can we really learn about our preferences. Recipes will have everything laid out for us from the nutritional information down to the step by step processs; the knowledge gained from working repeatedly with ingredients and exposure to new ones supplies the user with the capability to go out and build a grocery list that caters to themselves. In this data analysis I will primarily explore the **calories of a recipe**. 
+
+The raw dataset from food.com consists of recipes and ratings which date back to 2018. The recipes dataset has 83782 rows with each row representing a unique recipe. The 12 columns of recipes is shown below. 
 
 |Column|Description|
 |-----------|-----------|
@@ -69,7 +70,7 @@ Below is the first few rows of our full food dataframe
 
 Here I will examine the distribution of single variables.
 
-The plot below shows the number of reviews per rating category. We can see a high skew specifically in favor of a ratings value of 5. This is likely because to be able to post a recipe to **food.com** there needs to be some credibility of skill and knowledge with cuisine, and in general people gear to foods that they know their personal palette will like, so this comes into play when deciding what recipe a person will spend their time preparing. Thus, less likely for someone to rate a recipe as "bad" when there is a good amount of consideration on the users' end. 
+The plot below shows the number of reviews per rating category. We can see a high skew specifically in favor of ratings with a value of 5. This is likely due to the criteria of who is deemed credible to post a recipe to **food.com**. There needs to be some source of skill and knowledge with cuisine, and in general people gear to foods that align with their personal palette; so, this comes into play when deciding what recipe a person will spend their time preparing. Thus, less likely for someone to rate a recipe as "bad" when there is a good amount of consideration on the users' end. 
 
 <iframe
   src="assets/univar1-reviews-ratings.html"
@@ -78,7 +79,7 @@ The plot below shows the number of reviews per rating category. We can see a hig
   frameborder="0"
 ></iframe>
 
-The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter 10% of the outermost outliers where calories are greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
+The next plot below shows the probability distribution of calories. However, the calories column contains large outliers; therefore, I chose to filter out 10% of the outermost outliers where calories are greater than 750. The histogram peaks around **calories = 150** which means that a randomly selected recipe has a high probability of having a calorie value around 150. We also note that the histogram is right skewed which means the probability of selecting a recipe with calories above a 400 value is lower.
 
 <iframe
   src="assets/univar2-calories.html"
@@ -91,7 +92,7 @@ The next plot below shows the probability distribution of calories. However, the
 
 Here I will examine the statistics of a pair of columns to identify possible associations. 
 
-The scatter plot shown below identifies the relationship between number of ingredients and time in minutes. However, the minutes column has large outliers so I chose to filter 10% of the outermost outliers where minutes are greater than 130. Notice there is no strong, visible correlation (linear trend) between the number of ingredients and minutes of a recipe. There is also similar vertical stretch all throughout suggesting that there isn't more ingredients for recipes that take longer. Lastly, there is a dense cloud of data points in the lower half of the x-axis in which we can interpret as there more recipes that take less time. 
+The scatter plot shown below identifies the relationship between number of ingredients and time in minutes. However, the minutes column has large outliers so I chose to filter out 10% of the outermost outliers where minutes are greater than 130. Notice there is no strong, visible correlation (linear trend) between the number of ingredients and minutes of a recipe. There is also similar vertical stretch all throughout suggesting that there isn't more ingredients for recipes that take longer. Lastly, there is a dense cloud of data points in the lower half of the x-axis in which we can interpret as there being more recipes that take less time. 
 
 <iframe
   src="assets/bivar-ingredients-minutes.html"
@@ -179,7 +180,7 @@ I decided to group the calories to create a categorical column based on where ca
 I chose a permutation test because I only have access to a sample of recipes from food.com and we want to compare if two distributions look similar or different (from same population or not). I performed 1000 repititions and shuffled the newly created categorical data column from grouping calories.
 
 <iframe
-  src="assets/MAR-nsteps.html"
+  src="assets/permtest.html"
   width="800"
   height="550"
   frameborder="0"
@@ -189,7 +190,7 @@ The observed test statistic is represented by the bold vertical line. I got a p-
 
 # Problem Identification
 
-I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some; whether it's to be more nutritionally aware or watch their weight. 
+I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some; whether it's to be more nutritionally aware or to watch their weight. 
 
 The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**. I filtered the original **food** dataframe to remove the outermost 1% of outliers where calories >= 2500. I determined only a 1% removal because that will handle the situation of extreme cases and I won't lose too much potentially important data for my predictions. 
 
@@ -201,7 +202,7 @@ The RMSE of the training set is **29.35** which is a good model because I recogn
 
 # Final Model 
 
-The final model uses the standardized features total fats, carbohydrates, protein, and sugar; as well as the binarized feature n_ingredients. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
+The final model uses the standardized features total fats, carbohydrates, protein, and sugar as well as the binarized feature n_ingredients. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
 1. stdscalar total fats only
 2. stdscalar total fats + carbs
 3. stdscalar total fats + carbs + protein
