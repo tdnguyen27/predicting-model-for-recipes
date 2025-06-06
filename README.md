@@ -194,3 +194,12 @@ For my fairness analysis I chose my two groups as above median minutes and below
 **Test Statistic:** The difference in RMSE of (below to median minutes group - above median minutes group)
 
 **Significance Level:** 0.05
+
+<iframe
+  src="assets/fairness_distr.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+I got a p-value of 0.0 which led me to reject the null hypothesis in favor of the alternative hypothesis. Therefore, I cannot say that the model is fair, and differences are not due to randomness; although, I cannot precisely define why. 
