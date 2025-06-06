@@ -100,26 +100,77 @@ I will explore the average amount of sugar per rating category. I binned the con
 
 - Note: wherever there are null values means that there is no data for a given rating that falls under the specific sugar quartile
 
-# NMAR Analysis 
+# Assessment of Missingness
+## NMAR Analysis
 By exploring the data I found that there are 4 columns with null values: <mark>description, rating, review, and average rating</mark>. NMAR missingness is dependent on the value itself. Refer to the introduction where I performed the data cleaning. I created the null values that exist in the <mark>rating</mark> column, and the <mark>average rating</mark> column was created using the <mark>rating</mark> column so if one contains null values then it makes sense the other would too. 
 
 The missingness of <mark>rating</mark> is NMAR because I created the null values wherever rating was 0. This is because a rating of 0 meant a rating does not exist for the given recipe, not that the recipe was lowly rated. Leaving the existence of 0 values would affect the data analysis. 
 
-# MAR Missingness Dependency 
-## Missingness of reviews
-First, I will explore the missingness of review with calories.
+## Missingness Dependency
+I will explore the missingness dependency of reviews against other columns using hypothesis testing with a significance level of **0.05**. 
 
-Null Hypothesis: Distribution of calories with missing review values is the same as without missing review values 
+# Review and Protein
+**Null Hypothesis:** Distribution of protein with missing review values is the same as without missing review values 
 
-Alternative Hypothesis: Distribution of calories with missing review values is different from without missing review values 
+**Alternative Hypothesis:** Distribution of protein with missing review values is different from without missing review values 
 
-Below is a plot of the distribution of calories when reviews are missing and when they are not. The two distributions are different shape but similar centers which led me to use the KS test stat.  
+**Test Statistic:** the plot of the distribution of protein when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.  
+
+<iframe
+  src="assets/protein_MAR.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+I performed a permutation test and got a p-value of 0.082 which led me to keep the null hypothesis; therefore, the missingness of review is not dependent on protein amount. 
+
+# Review and Number of Steps 
+**Null Hypothesis:** Distribution of number of steps with missing review values is the same as without missing review values 
+
+**Alternative Hypothesis:** Distribution of number of steps with missing review values is different from without missing review values 
+
+**Test Statistic:** the plot of the distribution of number of steps when reviews are missing and when they are not show that the two distributions are different shape but similar centers which led me to use the **KS test stat**.
+
+<iframe
+  src="assets/n_steps_MAR.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+I performed a permutation test and got a p-value of 0.00023 which led me to reject the null hypothesis in favor of the alternative hypothesis; therefore, the missingness of review is dependent on the number of steps of a recipe.
+
+# Hypothesis Testing
+My main interest in exploring the <mark>food</mark> dataset is investigating the nutritional aspect of a recipe. The question I am focused on answering is "What is the relationship between calories and average rating of a recipe?". Both calories and average rating are numerical continuous data. 
+
+**Null Hypothesis:** The average rating for recipes with below average calories is the same as that for recipes with above average calories, therefore any observed differences is due to randomn chance 
+
+**Alternative Hypothesis:** The average rating for recipes with below average calories is different from that for recipes with above average calories
+
+**Test Statistic:** Absolute value of difference in mean between 'below average' calories and 'above average' calories
+- I chose to use the absolute value because I care about if these two distributions are different; therefore I care about the magnitude in difference not the direction 
+
+**Significance Level:** 0.05
+
+I chose a permutation test because I only have access to a sample of recipes from food.com and we want to compare if two distributions look similar or different (from same population or not). I grouped the numerical calories data into categorical based on the mean of the calories data where the two groups are 'above average' and 'below average', and these are the labels I shuffled. 
+
+<iframe
+  src="assets/permtest.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+The observed test statistic is represented by the bold vertical line. I got a p-value of **0.268** which led me to keep the null hypothesis which means any observed differences noticed is due to randomness. 
 
 # Problem Identification
 I plan to **predict the calories of a recipe** which is a regression problem. The response variable I chose is the calories of a recipe because for many people an important factor in creating meals is the amount of calories they are building in their meals; being able to identify the calories of a meal is a distinction that is of interest for some. Whether it's to be more nutritionally aware or watching weight. The metric I am using to evaluate my model is the **Root Mean Squared Error** because calories is a continuous numerical value. The information I know and is available to use before I train the model are all the columns I named above under **Intoduction**.
+
 # Baseline Model 
-For my baseline model I am untilizing a Linear Regression model and spliting the dataset into testing and training sets. The features in the baseline model are total fats, carbohydrates, and proteins in percentage of daily value \(PDV). All 3 features are quantitative however I chose to standardize these features because carbohydrates averaged about 12 while proteins and total fats averaged about 30. 
+For my baseline model I am untilizing a Linear Regression model and splitting the dataset into testing and training sets. The features in the baseline model are total fats, carbohydrates, and proteins in percentage of daily value \(PDV). All 3 features are quantitative however I chose to standardize these features because carbohydrates averaged about 12 while proteins and total fats averaged about 30. 
 The RMSE of the model is **28.94** which is a good model because I recognize that RMSE is in the units of our original y data which is calories. So, our RMSE is telling me that the predicted values are about 28.94 calories off from the actual calorie values, which is not a lot in terms of calories. 
+
 # Final Model 
 The final model uses the standardized features <mark>total fats (PDV)</mark>, <mark>carbohydrates (PDV)</mark>, <mark>protein (PDV)</mark>, and <mark>sugar (PDV)</mark>; as well as the binarized feature <mark>n_ingredients</mark>. I found these as my best hyperparameters from performing an iterative **crossed validation score** with 5 folds. I incremented my features as follows: 
 1. stdscalar total fats only
@@ -133,3 +184,13 @@ I chose the obvious features of fats, carbohydrates, proteins, and sugars becaus
 
 I continued to use the RMSE metric to evaluate my final model. The RMSE of my final model is **28.78** which is 0.16 better than the baseline model.
 
+# Fairness Analysis
+For my fairness analysis I chose my two groups as above median minutes and below median minutes. I chose the median instead of mean because the distribution of minutes has many large outliers in which the mean is not robust to. Since my model is a regression model I chose the RMSE as my evaluation metric. 
+
+**Null Hypothesis:** My model is fair. The RMSE for above median minutes group and below median minutes group are roughly the same and any differences are due to randomness
+
+**Alternative Hypothesis:** My model is unfair. The RMSE for below median minutes group is lower than the RMSE for above median minutes group. 
+
+**Test Statistic:** The difference in RMSE of (below to median minutes group - above median minutes group)
+
+**Significance Level:** 0.05
