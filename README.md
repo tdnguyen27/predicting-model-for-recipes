@@ -1,4 +1,5 @@
 # Data Analysis on Features of Food Recipe
+This is a project for Data Science 80 at UCSD
 
 Author: Tori Nguyen
 
